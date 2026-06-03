@@ -2,10 +2,10 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject private var viewModel: DashboardViewModel
-    let openSection: (SidebarItem) -> Void
+    let navigate: (SidebarItem) -> Void
 
-    init(openSection: @escaping (SidebarItem) -> Void = { _ in }) {
-        self.openSection = openSection
+    init(navigate: @escaping (SidebarItem) -> Void = { _ in }) {
+        self.navigate = navigate
     }
 
     var body: some View {
@@ -56,25 +56,25 @@ struct DashboardView: View {
 
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 210), spacing: 12)], spacing: 12) {
                         DashboardActionButton(title: "Run Smart Scan", subtitle: "One scan for key cleanup areas", symbol: "wand.and.stars") {
-                            openSection(.smartScan)
+                            navigate(.smartScan)
                         }
                         DashboardActionButton(title: "Scan System Junk", subtitle: "Caches, logs, temporary files", symbol: "sparkles") {
-                            openSection(.systemJunk)
+                            navigate(.systemJunk)
                         }
                         DashboardActionButton(title: "Find Large Files", subtitle: "Review space-heavy files", symbol: "doc.text.magnifyingglass") {
-                            openSection(.largeFiles)
+                            navigate(.largeFiles)
                         }
                         DashboardActionButton(title: "Uninstall Apps", subtitle: "Review apps and leftovers", symbol: "app.badge") {
-                            openSection(.appUninstaller)
+                            navigate(.appUninstaller)
                         }
                         DashboardActionButton(title: "Check Trash", subtitle: "Review current Trash contents", symbol: "trash") {
-                            openSection(.trashCleanup)
+                            navigate(.trashCleanup)
                         }
                         DashboardActionButton(title: "Optimize Startup", subtitle: "Review launch agents and daemons", symbol: "power") {
-                            openSection(.startupOptimization)
+                            navigate(.startupOptimization)
                         }
                         DashboardActionButton(title: "Watch CPU", subtitle: "Top processes by usage", symbol: "cpu") {
-                            openSection(.cpuMonitor)
+                            navigate(.cpuMonitor)
                         }
                     }
                 }
@@ -83,7 +83,7 @@ struct DashboardView: View {
                     Text("Next Up")
                         .font(.title2.bold())
                     Button("Review Full Disk Access", systemImage: "lock.shield") {
-                        openSection(.settings)
+                        navigate(.settings)
                     }
                     .buttonStyle(.bordered)
                     Text("Granting Full Disk Access helps scans see the files macOS otherwise hides from utility apps.")

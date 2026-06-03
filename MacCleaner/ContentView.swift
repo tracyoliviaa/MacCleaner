@@ -18,27 +18,37 @@ enum SidebarItem: String, CaseIterable, Identifiable {
 
     var symbol: String {
         switch self {
-        case .dashboard: "gauge.with.dots.needle.67percent"
-        case .smartScan: "wand.and.stars"
-        case .systemJunk: "sparkles"
-        case .trashCleanup: "trash"
-        case .largeFiles: "doc.text.magnifyingglass"
-        case .duplicateFinder: "doc.on.doc"
-        case .appUninstaller: "app.badge"
-        case .startupOptimization: "power"
-        case .memoryCleaner: "memorychip"
-        case .cpuMonitor: "cpu"
-        case .privacyCleaner: "hand.raised"
-        case .settings: "gearshape"
+        case .dashboard: return "gauge.with.dots.needle.67percent"
+        case .smartScan: return "wand.and.stars"
+        case .systemJunk: return "sparkles"
+        case .trashCleanup: return "trash"
+        case .largeFiles: return "doc.text.magnifyingglass"
+        case .duplicateFinder: return "doc.on.doc"
+        case .appUninstaller: return "app.badge"
+        case .startupOptimization: return "power"
+        case .memoryCleaner: return "memorychip"
+        case .cpuMonitor: return "cpu"
+        case .privacyCleaner: return "hand.raised"
+        case .settings: return "gearshape"
         }
     }
 }
 
 struct ContentView: View {
     @State private var selection: SidebarItem = .dashboard
-    @EnvironmentObject private var dashboardViewModel: DashboardViewModel
-    @EnvironmentObject private var smartScanViewModel: SmartScanViewModel
-    @EnvironmentObject private var trashViewModel: TrashViewModel
+
+    @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var dashboardVM: DashboardViewModel
+    @EnvironmentObject private var systemJunkVM: SystemJunkViewModel
+    @EnvironmentObject private var largeFilesVM: LargeFilesViewModel
+    @EnvironmentObject private var duplicateVM: DuplicateFinderViewModel
+    @EnvironmentObject private var memoryVM: MemoryViewModel
+    @EnvironmentObject private var cpuVM: CPUViewModel
+    @EnvironmentObject private var privacyVM: PrivacyViewModel
+    @EnvironmentObject private var smartScanVM: SmartScanViewModel
+    @EnvironmentObject private var startupVM: StartupViewModel
+    @EnvironmentObject private var appUninstallerVM: AppUninstallerViewModel
+    @EnvironmentObject private var trashVM: TrashViewModel
 
     var body: some View {
         NavigationSplitView {
@@ -50,15 +60,7 @@ struct ContentView: View {
             }
             .navigationTitle("MacCleaner")
         } detail: {
-            VStack(spacing: 0) {
-                AppNavigationBar(selection: selection) { item in
-                    selection = item
-                }
-
-                Divider()
-
-                detailView
-            }
+            detailView
         }
     }
 
@@ -66,66 +68,49 @@ struct ContentView: View {
     private var detailView: some View {
         switch selection {
         case .dashboard:
-            DashboardView(openSection: { selection = $0 })
-                .environmentObject(dashboardViewModel)
+            DashboardView(navigate: { selection = $0 })
+                .environmentObject(settings)
+                .environmentObject(dashboardVM)
         case .smartScan:
-            SmartScanView(openSection: { selection = $0 })
-                .environmentObject(smartScanViewModel)
-        case .systemJunk: SystemJunkView()
+            SmartScanView(navigate: { selection = $0 })
+                .environmentObject(settings)
+                .environmentObject(smartScanVM)
+        case .systemJunk:
+            SystemJunkView()
+                .environmentObject(settings)
+                .environmentObject(systemJunkVM)
         case .trashCleanup:
             TrashCleanupView()
-                .environmentObject(trashViewModel)
-        case .largeFiles: LargeFilesView()
-        case .duplicateFinder: DuplicateFinderView()
-        case .appUninstaller: AppUninstallerView()
-        case .startupOptimization: StartupOptimizationView()
-        case .memoryCleaner: MemoryCleanerView()
-        case .cpuMonitor: CPUMonitorView()
-        case .privacyCleaner: PrivacyCleanerView()
-        case .settings: SettingsView()
-        }
-    }
-}
-
-private struct AppNavigationBar: View {
-    let selection: SidebarItem
-    let open: (SidebarItem) -> Void
-
-    var body: some View {
-        HStack(spacing: 10) {
-            NavigationBarButton(title: "Dashboard", symbol: "house", isActive: selection == .dashboard) {
-                open(.dashboard)
-            }
-
-            NavigationBarButton(title: "Smart Scan", symbol: "wand.and.stars", isActive: selection == .smartScan) {
-                open(.smartScan)
-            }
-
-            Spacer()
-
-            Label(selection.rawValue, systemImage: selection.symbol)
-                .font(.callout)
-                .foregroundStyle(.secondary)
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(.bar)
-    }
-}
-
-private struct NavigationBarButton: View {
-    let title: String
-    let symbol: String
-    let isActive: Bool
-    let action: () -> Void
-
-    var body: some View {
-        if isActive {
-            Button(title, systemImage: symbol, action: action)
-                .buttonStyle(.borderedProminent)
-        } else {
-            Button(title, systemImage: symbol, action: action)
-                .buttonStyle(.bordered)
+                .environmentObject(trashVM)
+        case .largeFiles:
+            LargeFilesView()
+                .environmentObject(settings)
+                .environmentObject(largeFilesVM)
+                .environmentObject(smartScanVM)
+        case .duplicateFinder:
+            DuplicateFinderView()
+                .environmentObject(settings)
+                .environmentObject(duplicateVM)
+        case .appUninstaller:
+            AppUninstallerView()
+                .environmentObject(settings)
+                .environmentObject(appUninstallerVM)
+        case .startupOptimization:
+            StartupOptimizationView()
+                .environmentObject(startupVM)
+        case .memoryCleaner:
+            MemoryCleanerView()
+                .environmentObject(memoryVM)
+        case .cpuMonitor:
+            CPUMonitorView()
+                .environmentObject(cpuVM)
+        case .privacyCleaner:
+            PrivacyCleanerView()
+                .environmentObject(settings)
+                .environmentObject(privacyVM)
+        case .settings:
+            SettingsView()
+                .environmentObject(settings)
         }
     }
 }

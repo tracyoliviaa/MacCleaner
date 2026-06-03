@@ -3,11 +3,11 @@ import SwiftUI
 struct SmartScanView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var viewModel: SmartScanViewModel
-    let openSection: (SidebarItem) -> Void
+    let navigate: (SidebarItem) -> Void
     @State private var showSafeCleanupAlert = false
 
-    init(openSection: @escaping (SidebarItem) -> Void = { _ in }) {
-        self.openSection = openSection
+    init(navigate: @escaping (SidebarItem) -> Void = { _ in }) {
+        self.navigate = navigate
     }
 
     var body: some View {
@@ -72,7 +72,7 @@ struct SmartScanView: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 260), spacing: 12)], spacing: 12) {
                         ForEach(viewModel.actions) { action in
                             SmartScanActionCard(action: action) {
-                                openSection(action.destination)
+                                navigate(action.destination)
                             }
                         }
                     }

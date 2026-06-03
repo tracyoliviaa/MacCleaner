@@ -3,50 +3,53 @@ import SwiftUI
 struct LargeFilesView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var viewModel: LargeFilesViewModel
-    @EnvironmentObject private var smartScanViewModel: SmartScanViewModel
+    @EnvironmentObject private var smartScanVM: SmartScanViewModel
     @State private var pendingTrash: FileItem?
     @State private var selectedIDs = Set<UUID>()
-    @State private var showBulkTrashAlert = false
+    @State private var showBulkAlert = false
 
     private var selectedFiles: [FileItem] {
         viewModel.files.filter { selectedIDs.contains($0.id) }
     }
 
-    private var selectedSize: Int64 {
-        selectedFiles.reduce(0) { $0 + $1.size }
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            PageHeader(title: "Large Files", subtitle: "Find big files in your home folder and mounted volumes.")
+            PageHeader(
+                title: "Large Files",
+                subtitle: "Find big files in your home folder and mounted volumes."
+            )
 
             FullDiskAccessNotice()
 
             HStack {
                 Button("Scan", systemImage: "magnifyingglass") {
+                    selectedIDs.removeAll()
                     viewModel.scan(thresholdMB: settings.largeFileThresholdMB, exclusions: settings.exclusions)
                 }
                 .disabled(viewModel.isScanning || viewModel.isCleaning)
 
-                Button(settings.moveToTrash ? "Trash Selected" : "Delete Selected", systemImage: settings.moveToTrash ? "trash" : "xmark.bin") { showBulkTrashAlert = true }
-                    .disabled(selectedFiles.isEmpty || viewModel.isScanning || viewModel.isCleaning)
+                Button(settings.moveToTrash ? "Trash Selected" : "Delete Selected",
+                       systemImage: settings.moveToTrash ? "trash" : "xmark.bin") {
+                    showBulkAlert = true
+                }
+                .disabled(selectedFiles.isEmpty || viewModel.isScanning || viewModel.isCleaning)
 
-                if viewModel.isScanning || viewModel.isCleaning { ProgressView().controlSize(.small) }
+                if viewModel.isScanning || viewModel.isCleaning {
+                    ProgressView().controlSize(.small)
+                }
                 Spacer()
-                Text("Selected: \(Formatters.fileSize(selectedSize))")
+                Text("Threshold: \(Int(settings.largeFileThresholdMB)) MB")
                     .foregroundStyle(.secondary)
                 Text("Total: \(Formatters.fileSize(viewModel.totalSize))")
                     .foregroundStyle(.secondary)
-            }
-
-            if viewModel.isCleaning {
-                ProgressView(value: viewModel.progress)
+                Text("Selected: \(Formatters.fileSize(selectedFiles.reduce(0) { $0 + $1.size }))")
+                    .foregroundStyle(.secondary)
             }
 
             if viewModel.isScanning {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
                     ProgressView()
-                    Text("Scanning for files over \(Int(settings.largeFileThresholdMB)) MB. This can take a minute on a full Mac.")
+                    Text("Scanning for files over \(Int(settings.largeFileThresholdMB)) MB...")
                         .foregroundStyle(.secondary)
                 }
                 .padding(12)
@@ -54,37 +57,36 @@ struct LargeFilesView: View {
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
             }
 
-            if !viewModel.statusMessage.isEmpty {
-                Text(viewModel.statusMessage)
-                    .foregroundStyle(.secondary)
+            if viewModel.isCleaning {
+                ProgressView(value: viewModel.progress)
             }
 
-            Text("Threshold: \(Int(settings.largeFileThresholdMB)) MB")
-                .font(.callout)
-                .foregroundStyle(.secondary)
+            if !viewModel.statusMessage.isEmpty {
+                Text(viewModel.statusMessage).foregroundStyle(.secondary)
+            }
 
-            if viewModel.files.isEmpty, !viewModel.isScanning {
-                VStack(spacing: 14) {
-                    EmptyStateView(text: smartScanViewModel.result?.largeFiles.isEmpty == false ? "Loading large files from Smart Scan" : "Click Scan to review large files")
-                    Text("If Smart Scan found large files, they appear here automatically. The Scan button does a deeper search and can take longer.")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                .frame(minHeight: 280)
+            if viewModel.files.isEmpty && !viewModel.isScanning {
+                EmptyStateView(text: "Click Scan to find large files")
             } else {
                 Table(viewModel.files, selection: $selectedIDs) {
                     TableColumn("Name", value: \.name)
-                    TableColumn("Path", value: \.path)
                     TableColumn("Size") { Text(Formatters.fileSize($0.size)) }.width(110)
                     TableColumn("Modified") { file in
                         Text(file.modifiedAt ?? .distantPast, style: .date)
                     }
                     .width(120)
+                    TableColumn("Path") { file in
+                        Text(file.path)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
                     TableColumn("") { file in
                         HStack {
                             Button("Reveal", systemImage: "finder") { viewModel.reveal(file) }
-                            Button(settings.moveToTrash ? "Trash" : "Delete", systemImage: settings.moveToTrash ? "trash" : "xmark.bin") { pendingTrash = file }
+                            Button(settings.moveToTrash ? "Trash" : "Delete",
+                                   systemImage: settings.moveToTrash ? "trash" : "xmark.bin") {
+                                pendingTrash = file
+                            }
                         }
                     }
                     .width(170)
@@ -93,34 +95,31 @@ struct LargeFilesView: View {
         }
         .padding(28)
         .onAppear {
-            viewModel.loadFromSmartScan(smartScanViewModel.result?.largeFiles ?? [])
             if viewModel.files.isEmpty && !viewModel.isScanning {
-                viewModel.scan(thresholdMB: settings.largeFileThresholdMB, exclusions: settings.exclusions)
+                if let smartFiles = smartScanVM.result?.largeFiles, !smartFiles.isEmpty {
+                    viewModel.loadFromSmartScan(smartFiles)
+                } else {
+                    viewModel.scan(thresholdMB: settings.largeFileThresholdMB, exclusions: settings.exclusions)
+                }
             }
         }
-        .onChange(of: smartScanViewModel.result?.largeFiles ?? []) { _, files in
-            viewModel.loadFromSmartScan(files)
-        }
-        .alert(settings.moveToTrash ? "Move file to Trash?" : "Permanently delete file?", isPresented: Binding(
-            get: { pendingTrash != nil },
-            set: { if !$0 { pendingTrash = nil } }
-        )) {
+        .alert(settings.moveToTrash ? "Move file to Trash?" : "Delete file?",
+               isPresented: Binding(get: { pendingTrash != nil }, set: { if !$0 { pendingTrash = nil } })) {
             Button("Cancel", role: .cancel) { pendingTrash = nil }
             Button(settings.moveToTrash ? "Move to Trash" : "Delete Forever", role: .destructive) {
-                if let pendingTrash {
-                    viewModel.clean(pendingTrash, mode: settings.moveToTrash ? .trash : .permanent)
-                }
+                if let f = pendingTrash { viewModel.clean(f, mode: settings.moveToTrash ? .trash : .permanent) }
                 pendingTrash = nil
             }
         }
-        .alert(settings.moveToTrash ? "Move selected files to Trash?" : "Permanently delete selected files?", isPresented: $showBulkTrashAlert) {
+        .alert(settings.moveToTrash ? "Move selected files to Trash?" : "Delete selected files?",
+               isPresented: $showBulkAlert) {
             Button("Cancel", role: .cancel) {}
             Button(settings.moveToTrash ? "Move to Trash" : "Delete Forever", role: .destructive) {
                 viewModel.clean(selectedFiles, mode: settings.moveToTrash ? .trash : .permanent)
                 selectedIDs.removeAll()
             }
         } message: {
-            Text(settings.moveToTrash ? "MacCleaner will move \(selectedFiles.count) selected file\(selectedFiles.count == 1 ? "" : "s") to Trash." : "This cannot be undone.")
+            Text("\(selectedFiles.count) file\(selectedFiles.count == 1 ? "" : "s") selected.")
         }
     }
 }

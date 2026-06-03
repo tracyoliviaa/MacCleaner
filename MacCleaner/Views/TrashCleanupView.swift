@@ -1,5 +1,4 @@
 import SwiftUI
-import AppKit
 
 struct TrashItemRow: Identifiable, Hashable {
     let id = UUID()
@@ -13,30 +12,42 @@ struct TrashCleanupView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            PageHeader(title: "Trash Cleanup", subtitle: "Review current Trash contents before permanent deletion.")
+            PageHeader(
+                title: "Trash Cleanup",
+                subtitle: "Review current Trash contents before permanent deletion."
+            )
 
             HStack {
-                Button("Scan Trash", systemImage: "magnifyingglass") { viewModel.scan() }
+                Button("Scan", systemImage: "magnifyingglass") { viewModel.scan() }
                     .disabled(viewModel.isScanning || viewModel.isDeleting)
-                Button("Open Trash", systemImage: "trash") {
-                    NSWorkspace.shared.open(URL(filePath: "\(NSHomeDirectory())/.Trash"))
-                }
+                Button("Open Trash", systemImage: "trash") { viewModel.openInFinder() }
+                Button("Select All") { viewModel.selectAll(true) }
+                    .disabled(viewModel.rows.isEmpty)
+                Button("Select None") { viewModel.selectAll(false) }
+                    .disabled(viewModel.rows.isEmpty)
                 Button("Delete Selected", systemImage: "xmark.bin") { showDeleteAlert = true }
                     .disabled(viewModel.selectedRows.isEmpty || viewModel.isDeleting)
+                    .buttonStyle(.borderedProminent)
+                if viewModel.isScanning || viewModel.isDeleting {
+                    ProgressView().controlSize(.small)
+                }
                 Spacer()
-                Text("Selected: \(Formatters.fileSize(viewModel.selectedSize))").foregroundStyle(.secondary)
+                Text("Selected: \(Formatters.fileSize(viewModel.selectedSize))")
+                    .foregroundStyle(.secondary)
+                Text("Total: \(Formatters.fileSize(viewModel.totalSize))")
+                    .foregroundStyle(.secondary)
             }
 
-            if viewModel.isScanning || viewModel.isDeleting {
-                ProgressView(value: viewModel.isDeleting ? viewModel.progress : nil)
+            if viewModel.isDeleting {
+                ProgressView(value: viewModel.progress)
             }
 
             if !viewModel.statusMessage.isEmpty {
                 Text(viewModel.statusMessage).foregroundStyle(.secondary)
             }
 
-            if viewModel.rows.isEmpty, !viewModel.isScanning {
-                EmptyStateView(text: "Trash is empty")
+            if viewModel.rows.isEmpty && !viewModel.isScanning {
+                EmptyStateView(text: "Trash is empty or click Scan to check")
             } else {
                 Table(viewModel.rows) {
                     TableColumn("Delete") { row in
@@ -46,14 +57,18 @@ struct TrashCleanupView: View {
                         ))
                         .labelsHidden()
                     }
-                    .width(70)
+                    .width(60)
                     TableColumn("Name") { Text($0.file.name) }
-                    TableColumn("Path") { Text($0.file.path).foregroundStyle(.secondary) }
                     TableColumn("Size") { Text(Formatters.fileSize($0.file.size)) }.width(120)
                     TableColumn("Modified") { row in
                         Text(row.file.modifiedAt ?? .distantPast, style: .date)
                     }
                     .width(120)
+                    TableColumn("Path") { row in
+                        Text(row.file.path)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
                 }
             }
         }
@@ -67,7 +82,7 @@ struct TrashCleanupView: View {
             Button("Cancel", role: .cancel) {}
             Button("Delete Forever", role: .destructive) { viewModel.deleteSelected() }
         } message: {
-            Text("This cannot be undone. Files already in Trash will be removed permanently.")
+            Text("This cannot be undone. \(viewModel.selectedRows.count) item\(viewModel.selectedRows.count == 1 ? "" : "s") will be permanently removed.")
         }
     }
 }
