@@ -1,0 +1,162 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		200000000000000000000001 /* MacCleanerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000001 /* MacCleanerApp.swift */; };
+		200000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000002 /* ContentView.swift */; };
+		200000000000000000000003 /* SharedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000003 /* SharedViews.swift */; };
+		200000000000000000000004 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000004 /* DashboardView.swift */; };
+		200000000000000000000005 /* SystemJunkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000005 /* SystemJunkView.swift */; };
+		200000000000000000000006 /* MemoryCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000006 /* MemoryCleanerView.swift */; };
+		200000000000000000000007 /* CPUMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000007 /* CPUMonitorView.swift */; };
+		200000000000000000000008 /* LargeFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000008 /* LargeFilesView.swift */; };
+		200000000000000000000009 /* DuplicateFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000009 /* DuplicateFinderView.swift */; };
+		20000000000000000000000A /* PrivacyCleanerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000A /* PrivacyCleanerView.swift */; };
+		20000000000000000000000B /* TrashCleanupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000B /* TrashCleanupView.swift */; };
+		20000000000000000000000C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000C /* SettingsView.swift */; };
+		20000000000000000000000D /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000D /* DashboardViewModel.swift */; };
+		20000000000000000000000E /* SystemJunkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000E /* SystemJunkViewModel.swift */; };
+		20000000000000000000000F /* MemoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000000F /* MemoryViewModel.swift */; };
+		200000000000000000000010 /* CPUViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000010 /* CPUViewModel.swift */; };
+		200000000000000000000011 /* LargeFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000011 /* LargeFilesViewModel.swift */; };
+		200000000000000000000012 /* DuplicateFinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000012 /* DuplicateFinderViewModel.swift */; };
+		200000000000000000000013 /* PrivacyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000013 /* PrivacyViewModel.swift */; };
+		200000000000000000000014 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000014 /* FileItem.swift */; };
+		200000000000000000000015 /* ProcessItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000015 /* ProcessItem.swift */; };
+		200000000000000000000016 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000016 /* AppSettings.swift */; };
+		200000000000000000000017 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000017 /* Formatters.swift */; };
+		200000000000000000000018 /* TrashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000018 /* TrashService.swift */; };
+		200000000000000000000019 /* DiskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000019 /* DiskService.swift */; };
+		20000000000000000000001A /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000001A /* MemoryService.swift */; };
+		20000000000000000000001B /* CPUService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000001B /* CPUService.swift */; };
+		20000000000000000000001C /* HashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000001C /* HashService.swift */; };
+		20000000000000000000001D /* PrivacyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000001D /* PrivacyService.swift */; };
+		20000000000000000000001E /* StartupOptimizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000020 /* StartupOptimizationView.swift */; };
+		20000000000000000000001F /* StartupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000021 /* StartupViewModel.swift */; };
+		200000000000000000000020 /* StartupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000022 /* StartupItem.swift */; };
+		200000000000000000000021 /* StartupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000023 /* StartupService.swift */; };
+		200000000000000000000022 /* AppUninstallerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000024 /* AppUninstallerView.swift */; };
+		200000000000000000000023 /* AppUninstallerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000025 /* AppUninstallerViewModel.swift */; };
+		200000000000000000000024 /* InstalledApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000026 /* InstalledApp.swift */; };
+		200000000000000000000025 /* AppUninstallerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000027 /* AppUninstallerService.swift */; };
+		200000000000000000000026 /* SmartScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000028 /* SmartScanView.swift */; };
+		200000000000000000000027 /* SmartScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000029 /* SmartScanViewModel.swift */; };
+		200000000000000000000028 /* SmartScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000002A /* SmartScanResult.swift */; };
+		200000000000000000000029 /* SmartScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000002B /* SmartScanService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		100000000000000000000001 /* MacCleanerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCleanerApp.swift; sourceTree = "<group>"; };
+		100000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		100000000000000000000003 /* SharedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SharedViews.swift; sourceTree = "<group>"; };
+		100000000000000000000004 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/DashboardView.swift; sourceTree = "<group>"; };
+		100000000000000000000005 /* SystemJunkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SystemJunkView.swift; sourceTree = "<group>"; };
+		100000000000000000000006 /* MemoryCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/MemoryCleanerView.swift; sourceTree = "<group>"; };
+		100000000000000000000007 /* CPUMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/CPUMonitorView.swift; sourceTree = "<group>"; };
+		100000000000000000000008 /* LargeFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/LargeFilesView.swift; sourceTree = "<group>"; };
+		100000000000000000000009 /* DuplicateFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/DuplicateFinderView.swift; sourceTree = "<group>"; };
+		10000000000000000000000A /* PrivacyCleanerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PrivacyCleanerView.swift; sourceTree = "<group>"; };
+		10000000000000000000000B /* TrashCleanupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/TrashCleanupView.swift; sourceTree = "<group>"; };
+		10000000000000000000000C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
+		10000000000000000000000D /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/DashboardViewModel.swift; sourceTree = "<group>"; };
+		10000000000000000000000E /* SystemJunkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SystemJunkViewModel.swift; sourceTree = "<group>"; };
+		10000000000000000000000F /* MemoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MemoryViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000010 /* CPUViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/CPUViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000011 /* LargeFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/LargeFilesViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000012 /* DuplicateFinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/DuplicateFinderViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000013 /* PrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/PrivacyViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000014 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/FileItem.swift; sourceTree = "<group>"; };
+		100000000000000000000015 /* ProcessItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/ProcessItem.swift; sourceTree = "<group>"; };
+		100000000000000000000016 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/AppSettings.swift; sourceTree = "<group>"; };
+		100000000000000000000017 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/Formatters.swift; sourceTree = "<group>"; };
+		100000000000000000000018 /* TrashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/TrashService.swift; sourceTree = "<group>"; };
+		100000000000000000000019 /* DiskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/DiskService.swift; sourceTree = "<group>"; };
+		10000000000000000000001A /* MemoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/MemoryService.swift; sourceTree = "<group>"; };
+		10000000000000000000001B /* CPUService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/CPUService.swift; sourceTree = "<group>"; };
+		10000000000000000000001C /* HashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/HashService.swift; sourceTree = "<group>"; };
+		10000000000000000000001D /* PrivacyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/PrivacyService.swift; sourceTree = "<group>"; };
+		10000000000000000000001E /* MacCleaner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacCleaner.entitlements; sourceTree = "<group>"; };
+		10000000000000000000001F /* MacCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		100000000000000000000020 /* StartupOptimizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/StartupOptimizationView.swift; sourceTree = "<group>"; };
+		100000000000000000000021 /* StartupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/StartupViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000022 /* StartupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/StartupItem.swift; sourceTree = "<group>"; };
+		100000000000000000000023 /* StartupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/StartupService.swift; sourceTree = "<group>"; };
+		100000000000000000000024 /* AppUninstallerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AppUninstallerView.swift; sourceTree = "<group>"; };
+		100000000000000000000025 /* AppUninstallerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/AppUninstallerViewModel.swift; sourceTree = "<group>"; };
+		100000000000000000000026 /* InstalledApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/InstalledApp.swift; sourceTree = "<group>"; };
+		100000000000000000000027 /* AppUninstallerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AppUninstallerService.swift; sourceTree = "<group>"; };
+		100000000000000000000028 /* SmartScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SmartScanView.swift; sourceTree = "<group>"; };
+		100000000000000000000029 /* SmartScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SmartScanViewModel.swift; sourceTree = "<group>"; };
+		10000000000000000000002A /* SmartScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/SmartScanResult.swift; sourceTree = "<group>"; };
+		10000000000000000000002B /* SmartScanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SmartScanService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		300000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		400000000000000000000001 = {isa = PBXGroup; children = (400000000000000000000002, 400000000000000000000003); sourceTree = "<group>"; };
+		400000000000000000000002 /* MacCleaner */ = {isa = PBXGroup; children = (
+			100000000000000000000001, 100000000000000000000002, 100000000000000000000003, 100000000000000000000004,
+			100000000000000000000005, 100000000000000000000006, 100000000000000000000007, 100000000000000000000008,
+			100000000000000000000009, 10000000000000000000000A, 10000000000000000000000B, 10000000000000000000000C,
+			10000000000000000000000D, 10000000000000000000000E, 10000000000000000000000F, 100000000000000000000010,
+			100000000000000000000011, 100000000000000000000012, 100000000000000000000013, 100000000000000000000014,
+			100000000000000000000015, 100000000000000000000016, 100000000000000000000017, 100000000000000000000018,
+			100000000000000000000019, 10000000000000000000001A, 10000000000000000000001B, 10000000000000000000001C,
+			10000000000000000000001D, 100000000000000000000020, 100000000000000000000021, 100000000000000000000022,
+			100000000000000000000023, 100000000000000000000024, 100000000000000000000025, 100000000000000000000026,
+			100000000000000000000027, 100000000000000000000028, 100000000000000000000029, 10000000000000000000002A,
+			10000000000000000000002B, 10000000000000000000001E,
+		); path = MacCleaner; sourceTree = "<group>"; };
+		400000000000000000000003 /* Products */ = {isa = PBXGroup; children = (10000000000000000000001F); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		500000000000000000000001 /* MacCleaner */ = {isa = PBXNativeTarget; buildConfigurationList = 900000000000000000000002 /* Build configuration list for PBXNativeTarget "MacCleaner" */; buildPhases = (700000000000000000000001, 300000000000000000000001, 700000000000000000000002); buildRules = (); dependencies = (); name = MacCleaner; productName = MacCleaner; productReference = 10000000000000000000001F /* MacCleaner.app */; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		600000000000000000000001 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 2600; LastUpgradeCheck = 2600; TargetAttributes = {500000000000000000000001 = {CreatedOnToolsVersion = 26.5;};};}; buildConfigurationList = 900000000000000000000001 /* Build configuration list for PBXProject "MacCleaner" */; compatibilityVersion = "Xcode 16.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base); mainGroup = 400000000000000000000001; productRefGroup = 400000000000000000000003 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (500000000000000000000001 /* MacCleaner */); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		700000000000000000000002 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		700000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+			200000000000000000000001, 200000000000000000000002, 200000000000000000000003, 200000000000000000000004,
+			200000000000000000000005, 200000000000000000000006, 200000000000000000000007, 200000000000000000000008,
+			200000000000000000000009, 20000000000000000000000A, 20000000000000000000000B, 20000000000000000000000C,
+			20000000000000000000000D, 20000000000000000000000E, 20000000000000000000000F, 200000000000000000000010,
+			200000000000000000000011, 200000000000000000000012, 200000000000000000000013, 200000000000000000000014,
+			200000000000000000000015, 200000000000000000000016, 200000000000000000000017, 200000000000000000000018,
+			200000000000000000000019, 20000000000000000000001A, 20000000000000000000001B, 20000000000000000000001C,
+			20000000000000000000001D, 20000000000000000000001E, 20000000000000000000001F, 200000000000000000000020,
+			200000000000000000000021, 200000000000000000000022, 200000000000000000000023, 200000000000000000000024,
+			200000000000000000000025, 200000000000000000000026, 200000000000000000000027, 200000000000000000000028,
+			200000000000000000000029,
+		); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		800000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_USER_SCRIPT_SANDBOXING = YES; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = MacCleaner; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities"; MACOSX_DEPLOYMENT_TARGET = 26.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = local.personal.MacCleaner; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = macosx; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 6.0; }; name = Debug; };
+		800000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_USER_SCRIPT_SANDBOXING = YES; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = MacCleaner; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities"; MACOSX_DEPLOYMENT_TARGET = 26.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = local.personal.MacCleaner; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = macosx; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 6.0; }; name = Release; };
+		800000000000000000000003 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = MacCleaner/MacCleaner.entitlements; CODE_SIGN_IDENTITY = "-"; CODE_SIGN_STYLE = Manual; ENABLE_HARDENED_RUNTIME = NO; PRODUCT_NAME = "$(TARGET_NAME)"; }; name = Debug; };
+		800000000000000000000004 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = MacCleaner/MacCleaner.entitlements; CODE_SIGN_IDENTITY = "-"; CODE_SIGN_STYLE = Manual; ENABLE_HARDENED_RUNTIME = NO; PRODUCT_NAME = "$(TARGET_NAME)"; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		900000000000000000000001 /* Build configuration list for PBXProject "MacCleaner" */ = {isa = XCConfigurationList; buildConfigurations = (800000000000000000000001, 800000000000000000000002); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		900000000000000000000002 /* Build configuration list for PBXNativeTarget "MacCleaner" */ = {isa = XCConfigurationList; buildConfigurations = (800000000000000000000003, 800000000000000000000004); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 600000000000000000000001 /* Project object */;
+}
