@@ -13,6 +13,12 @@ final class LargeFilesViewModel: ObservableObject {
         files.reduce(0) { $0 + $1.size }
     }
 
+    func loadFromSmartScan(_ smartScanFiles: [FileItem]) {
+        guard files.isEmpty, !smartScanFiles.isEmpty else { return }
+        files = smartScanFiles.sorted { $0.size > $1.size }
+        statusMessage = "Showing \(files.count) large file\(files.count == 1 ? "" : "s") from your last Smart Scan."
+    }
+
     func scan(thresholdMB: Double, exclusions: [String]) {
         isScanning = true
         statusMessage = "Scanning home folder and mounted volumes..."

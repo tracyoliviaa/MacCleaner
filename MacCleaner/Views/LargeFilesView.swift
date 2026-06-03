@@ -3,6 +3,7 @@ import SwiftUI
 struct LargeFilesView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var viewModel: LargeFilesViewModel
+    @EnvironmentObject private var smartScanViewModel: SmartScanViewModel
     @State private var pendingTrash: FileItem?
     @State private var selectedIDs = Set<UUID>()
     @State private var showBulkTrashAlert = false
@@ -63,8 +64,14 @@ struct LargeFilesView: View {
                 .foregroundStyle(.secondary)
 
             if viewModel.files.isEmpty, !viewModel.isScanning {
-                EmptyStateView(text: "Click Scan to review large files")
-                    .frame(minHeight: 280)
+                VStack(spacing: 14) {
+                    EmptyStateView(text: smartScanViewModel.result?.largeFiles.isEmpty == false ? "Loading large files from Smart Scan" : "Click Scan to review large files")
+                    Text("If Smart Scan found large files, they appear here automatically. The Scan button does a deeper search and can take longer.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(minHeight: 280)
             } else {
                 Table(viewModel.files, selection: $selectedIDs) {
                     TableColumn("Name", value: \.name)
@@ -85,6 +92,12 @@ struct LargeFilesView: View {
             }
         }
         .padding(28)
+        .onAppear {
+            viewModel.loadFromSmartScan(smartScanViewModel.result?.largeFiles ?? [])
+        }
+        .onChange(of: smartScanViewModel.result?.largeFiles ?? []) { _, files in
+            viewModel.loadFromSmartScan(files)
+        }
         .alert(settings.moveToTrash ? "Move file to Trash?" : "Permanently delete file?", isPresented: Binding(
             get: { pendingTrash != nil },
             set: { if !$0 { pendingTrash = nil } }
