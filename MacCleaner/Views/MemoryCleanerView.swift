@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MemoryCleanerView: View {
-    @StateObject private var viewModel = MemoryViewModel()
+    @EnvironmentObject private var viewModel: MemoryViewModel
     @State private var showPurgeAlert = false
 
     var body: some View {

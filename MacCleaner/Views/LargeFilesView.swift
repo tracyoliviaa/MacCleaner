@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LargeFilesView: View {
     @EnvironmentObject private var settings: AppSettings
-    @StateObject private var viewModel = LargeFilesViewModel()
+    @EnvironmentObject private var viewModel: LargeFilesViewModel
     @State private var pendingTrash: FileItem?
     @State private var selectedIDs = Set<UUID>()
     @State private var showBulkTrashAlert = false

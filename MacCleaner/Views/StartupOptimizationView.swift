@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StartupOptimizationView: View {
-    @StateObject private var viewModel = StartupViewModel()
+    @EnvironmentObject private var viewModel: StartupViewModel
     @State private var pendingDisable: StartupItem?
     @State private var pendingEnable: StartupItem?
 

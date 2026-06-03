@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DuplicateFinderView: View {
     @EnvironmentObject private var settings: AppSettings
-    @StateObject private var viewModel = DuplicateFinderViewModel()
+    @EnvironmentObject private var viewModel: DuplicateFinderViewModel
     @State private var pendingGroup: DuplicateGroup?
 
     var body: some View {

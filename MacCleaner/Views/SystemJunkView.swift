@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SystemJunkView: View {
     @EnvironmentObject private var settings: AppSettings
-    @StateObject private var viewModel = SystemJunkViewModel()
+    @EnvironmentObject private var viewModel: SystemJunkViewModel
     @State private var showCleanAlert = false
 
     var body: some View {

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PrivacyCleanerView: View {
     @EnvironmentObject private var settings: AppSettings
-    @StateObject private var viewModel = PrivacyViewModel()
+    @EnvironmentObject private var viewModel: PrivacyViewModel
     @State private var showCleanAlert = false
 
     var body: some View {

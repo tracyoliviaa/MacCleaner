@@ -2,9 +2,13 @@ import SwiftUI
 
 struct SmartScanView: View {
     @EnvironmentObject private var settings: AppSettings
-    @ObservedObject var viewModel: SmartScanViewModel
+    @EnvironmentObject private var viewModel: SmartScanViewModel
     let openSection: (SidebarItem) -> Void
     @State private var showSafeCleanupAlert = false
+
+    init(openSection: @escaping (SidebarItem) -> Void = { _ in }) {
+        self.openSection = openSection
+    }
 
     var body: some View {
         ScrollView {

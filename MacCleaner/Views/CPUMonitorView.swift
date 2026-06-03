@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CPUMonitorView: View {
-    @StateObject private var viewModel = CPUViewModel()
+    @EnvironmentObject private var viewModel: CPUViewModel
     @State private var pendingQuit: ProcessItem?
 
     var body: some View {

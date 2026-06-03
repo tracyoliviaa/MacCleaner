@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AppUninstallerView: View {
     @EnvironmentObject private var settings: AppSettings
-    @StateObject private var viewModel = AppUninstallerViewModel()
+    @EnvironmentObject private var viewModel: AppUninstallerViewModel
     @State private var includeApp = true
     @State private var includeLeftovers = true
     @State private var showUninstallAlert = false

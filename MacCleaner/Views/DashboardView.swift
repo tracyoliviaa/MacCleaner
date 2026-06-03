@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject private var viewModel = DashboardViewModel()
+    @EnvironmentObject private var viewModel: DashboardViewModel
     let openSection: (SidebarItem) -> Void
 
     init(openSection: @escaping (SidebarItem) -> Void = { _ in }) {
