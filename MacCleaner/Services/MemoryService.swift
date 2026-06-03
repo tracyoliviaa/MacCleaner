@@ -61,26 +61,19 @@ enum MemoryService {
     static func purgeInactiveMemory() async -> PurgeResult {
         let process = Process()
         let errorPipe = Pipe()
-        process.executableURL = URL(filePath: "/usr/bin/sudo")
-        process.arguments = ["-n", "/usr/sbin/purge"]
+        process.executableURL = URL(filePath: "/usr/sbin/purge")
+        process.arguments = []
         process.standardError = errorPipe
 
         do {
             try process.run()
         } catch {
-            return PurgeResult(succeeded: false, message: "Could not start memory purge.")
+            return PurgeResult(succeeded: false, message: "Could not start purge. Make sure App Sandbox is disabled in Signing & Capabilities.")
         }
 
         process.waitUntilExit()
-        if process.terminationStatus == 0 {
-            return PurgeResult(succeeded: true, message: "Memory purge completed.")
-        }
-
-        let data = errorPipe.fileHandleForReading.readDataToEndOfFile()
-        let errorText = String(data: data, encoding: .utf8) ?? ""
-        if errorText.lowercased().contains("password") || process.terminationStatus == 1 {
-            return PurgeResult(succeeded: false, message: "Purge needs administrator permission. Run the app from Xcode or Terminal if you want to allow sudo prompts.")
-        }
-        return PurgeResult(succeeded: false, message: "Memory purge failed.")
+        return process.terminationStatus == 0
+            ? PurgeResult(succeeded: true, message: "Memory purge completed.")
+            : PurgeResult(succeeded: false, message: "Purge finished with exit status \(process.terminationStatus). Try running the app outside Xcode.")
     }
 }

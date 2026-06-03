@@ -15,12 +15,16 @@ struct DashboardView: View {
 
                 HStack(spacing: 16) {
                     ZStack {
-                        ProgressView(value: viewModel.disk?.usedFraction ?? 0)
-                            .progressViewStyle(.circular)
-                            .controlSize(.large)
+                        Circle()
+                            .stroke(Color.secondary.opacity(0.2), lineWidth: 14)
+                        Circle()
+                            .trim(from: 0, to: viewModel.disk?.usedFraction ?? 0)
+                            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 14, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
+                            .animation(.easeInOut(duration: 0.6), value: viewModel.disk?.usedFraction)
                         VStack(spacing: 2) {
                             Text("\(Int((viewModel.disk?.usedFraction ?? 0) * 100))%")
-                                .font(.headline)
+                                .font(.title2.bold())
                             Text("Used")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)

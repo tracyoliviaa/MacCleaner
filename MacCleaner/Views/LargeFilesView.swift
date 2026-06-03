@@ -94,6 +94,9 @@ struct LargeFilesView: View {
         .padding(28)
         .onAppear {
             viewModel.loadFromSmartScan(smartScanViewModel.result?.largeFiles ?? [])
+            if viewModel.files.isEmpty && !viewModel.isScanning {
+                viewModel.scan(thresholdMB: settings.largeFileThresholdMB, exclusions: settings.exclusions)
+            }
         }
         .onChange(of: smartScanViewModel.result?.largeFiles ?? []) { _, files in
             viewModel.loadFromSmartScan(files)

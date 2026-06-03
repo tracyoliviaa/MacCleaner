@@ -48,6 +48,7 @@
 		200000000000000000000027 /* SmartScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000029 /* SmartScanViewModel.swift */; };
 		200000000000000000000028 /* SmartScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000002A /* SmartScanResult.swift */; };
 		200000000000000000000029 /* SmartScanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000002B /* SmartScanService.swift */; };
+		20000000000000000000002A /* TrashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000000000000000000002C /* TrashViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		100000000000000000000029 /* SmartScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SmartScanViewModel.swift; sourceTree = "<group>"; };
 		10000000000000000000002A /* SmartScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/SmartScanResult.swift; sourceTree = "<group>"; };
 		10000000000000000000002B /* SmartScanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SmartScanService.swift; sourceTree = "<group>"; };
+		10000000000000000000002C /* TrashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/TrashViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +115,7 @@
 			10000000000000000000001D, 100000000000000000000020, 100000000000000000000021, 100000000000000000000022,
 			100000000000000000000023, 100000000000000000000024, 100000000000000000000025, 100000000000000000000026,
 			100000000000000000000027, 100000000000000000000028, 100000000000000000000029, 10000000000000000000002A,
-			10000000000000000000002B, 10000000000000000000001E,
+			10000000000000000000002B, 10000000000000000000002C, 10000000000000000000001E,
 		); path = MacCleaner; sourceTree = "<group>"; };
 		400000000000000000000003 /* Products */ = {isa = PBXGroup; children = (10000000000000000000001F); name = Products; sourceTree = "<group>"; };
 /* End PBXGroup section */
@@ -142,7 +144,7 @@
 			20000000000000000000001D, 20000000000000000000001E, 20000000000000000000001F, 200000000000000000000020,
 			200000000000000000000021, 200000000000000000000022, 200000000000000000000023, 200000000000000000000024,
 			200000000000000000000025, 200000000000000000000026, 200000000000000000000027, 200000000000000000000028,
-			200000000000000000000029,
+			200000000000000000000029, 20000000000000000000002A,
 		); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 

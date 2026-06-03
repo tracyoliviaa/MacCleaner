@@ -13,6 +13,7 @@ struct MacCleanerApp: App {
     @StateObject private var smartScanViewModel = SmartScanViewModel()
     @StateObject private var startupViewModel = StartupViewModel()
     @StateObject private var appUninstallerViewModel = AppUninstallerViewModel()
+    @StateObject private var trashViewModel = TrashViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -28,6 +29,7 @@ struct MacCleanerApp: App {
                 .environmentObject(smartScanViewModel)
                 .environmentObject(startupViewModel)
                 .environmentObject(appUninstallerViewModel)
+                .environmentObject(trashViewModel)
                 .frame(minWidth: 980, minHeight: 680)
         }
         .windowStyle(.titleBar)

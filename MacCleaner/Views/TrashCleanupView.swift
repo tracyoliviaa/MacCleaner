@@ -8,53 +8,41 @@ struct TrashItemRow: Identifiable, Hashable {
 }
 
 struct TrashCleanupView: View {
-    @State private var rows: [TrashItemRow] = []
-    @State private var isScanning = false
-    @State private var isDeleting = false
-    @State private var progress = 0.0
-    @State private var statusMessage = ""
+    @EnvironmentObject private var viewModel: TrashViewModel
     @State private var showDeleteAlert = false
-
-    private var selectedRows: [TrashItemRow] {
-        rows.filter(\.isSelected)
-    }
-
-    private var selectedSize: Int64 {
-        selectedRows.reduce(0) { $0 + $1.file.size }
-    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             PageHeader(title: "Trash Cleanup", subtitle: "Review current Trash contents before permanent deletion.")
 
             HStack {
-                Button("Scan Trash", systemImage: "magnifyingglass") { scan() }
-                    .disabled(isScanning || isDeleting)
+                Button("Scan Trash", systemImage: "magnifyingglass") { viewModel.scan() }
+                    .disabled(viewModel.isScanning || viewModel.isDeleting)
                 Button("Open Trash", systemImage: "trash") {
                     NSWorkspace.shared.open(URL(filePath: "\(NSHomeDirectory())/.Trash"))
                 }
                 Button("Delete Selected", systemImage: "xmark.bin") { showDeleteAlert = true }
-                    .disabled(selectedRows.isEmpty || isDeleting)
+                    .disabled(viewModel.selectedRows.isEmpty || viewModel.isDeleting)
                 Spacer()
-                Text("Selected: \(Formatters.fileSize(selectedSize))").foregroundStyle(.secondary)
+                Text("Selected: \(Formatters.fileSize(viewModel.selectedSize))").foregroundStyle(.secondary)
             }
 
-            if isScanning || isDeleting {
-                ProgressView(value: isDeleting ? progress : nil)
+            if viewModel.isScanning || viewModel.isDeleting {
+                ProgressView(value: viewModel.isDeleting ? viewModel.progress : nil)
             }
 
-            if !statusMessage.isEmpty {
-                Text(statusMessage).foregroundStyle(.secondary)
+            if !viewModel.statusMessage.isEmpty {
+                Text(viewModel.statusMessage).foregroundStyle(.secondary)
             }
 
-            if rows.isEmpty, !isScanning {
+            if viewModel.rows.isEmpty, !viewModel.isScanning {
                 EmptyStateView(text: "Trash is empty")
             } else {
-                Table(rows) {
+                Table(viewModel.rows) {
                     TableColumn("Delete") { row in
                         Toggle("", isOn: Binding(
                             get: { row.isSelected },
-                            set: { setSelected(row, selected: $0) }
+                            set: { viewModel.setSelected(row, selected: $0) }
                         ))
                         .labelsHidden()
                     }
@@ -71,46 +59,15 @@ struct TrashCleanupView: View {
         }
         .padding(28)
         .onAppear {
-            if rows.isEmpty && !isScanning {
-                scan()
+            if viewModel.rows.isEmpty && !viewModel.isScanning {
+                viewModel.scan()
             }
         }
         .alert("Permanently delete selected Trash items?", isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) {}
-            Button("Delete Forever", role: .destructive) { deleteSelected() }
+            Button("Delete Forever", role: .destructive) { viewModel.deleteSelected() }
         } message: {
             Text("This cannot be undone. Files already in Trash will be removed permanently.")
-        }
-    }
-
-    private func scan() {
-        isScanning = true
-        statusMessage = "Scanning Trash..."
-        Task {
-            let items = await DiskService.trashItems()
-            rows = items.map { TrashItemRow(file: $0) }
-            statusMessage = items.isEmpty ? "Trash is empty." : "Found \(items.count) item\(items.count == 1 ? "" : "s") in Trash."
-            isScanning = false
-        }
-    }
-
-    private func setSelected(_ row: TrashItemRow, selected: Bool) {
-        guard let index = rows.firstIndex(where: { $0.id == row.id }) else { return }
-        rows[index].isSelected = selected
-    }
-
-    private func deleteSelected() {
-        let urls = selectedRows.map { $0.file.url }
-        isDeleting = true
-        progress = 0
-        statusMessage = "Deleting selected Trash items..."
-        Task {
-            let summary = await TrashService.permanentlyDeleteMany(urls) { value in
-                await MainActor.run { progress = value }
-            }
-            statusMessage = summary.message
-            isDeleting = false
-            scan()
         }
     }
 }

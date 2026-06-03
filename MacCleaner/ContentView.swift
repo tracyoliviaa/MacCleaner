@@ -36,6 +36,9 @@ enum SidebarItem: String, CaseIterable, Identifiable {
 
 struct ContentView: View {
     @State private var selection: SidebarItem = .dashboard
+    @EnvironmentObject private var dashboardViewModel: DashboardViewModel
+    @EnvironmentObject private var smartScanViewModel: SmartScanViewModel
+    @EnvironmentObject private var trashViewModel: TrashViewModel
 
     var body: some View {
         NavigationSplitView {
@@ -62,10 +65,16 @@ struct ContentView: View {
     @ViewBuilder
     private var detailView: some View {
         switch selection {
-        case .dashboard: DashboardView { selection = $0 }
-        case .smartScan: SmartScanView { selection = $0 }
+        case .dashboard:
+            DashboardView(openSection: { selection = $0 })
+                .environmentObject(dashboardViewModel)
+        case .smartScan:
+            SmartScanView(openSection: { selection = $0 })
+                .environmentObject(smartScanViewModel)
         case .systemJunk: SystemJunkView()
-        case .trashCleanup: TrashCleanupView()
+        case .trashCleanup:
+            TrashCleanupView()
+                .environmentObject(trashViewModel)
         case .largeFiles: LargeFilesView()
         case .duplicateFinder: DuplicateFinderView()
         case .appUninstaller: AppUninstallerView()
